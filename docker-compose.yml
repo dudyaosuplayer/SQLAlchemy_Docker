@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: konoha
+      POSTGRES_USER: kakashi
+      POSTGRES_PASSWORD: 777
+    ports:
+      - "5432:5432"
+  db_tester:
+    image: graceozavr/db_tester:latest
+    depends_on:
+      - postgres
+    command: ["sh", "-c", "sleep 10 && python test_conn_script.py"]
